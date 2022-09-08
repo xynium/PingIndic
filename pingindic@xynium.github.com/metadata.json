@@ -1,0 +1,8 @@
+{
+  "name": "PingIndic",
+  "description": "show network ping time",
+  "uuid": "pingindic@xynium.github.com",
+  "shell-version": [
+    "3.36"
+  ]
+}
