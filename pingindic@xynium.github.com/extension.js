@@ -81,23 +81,25 @@ class Extension extends PanelMenu.Button{
         });
 
         // custom round preferences button
-        let prefsButton = this.createRoundButton('emblem-system'); //preferences-system-symbolic', _("Preferences"));
+        let prefsButton = new St.Button();
+        prefsButton.child = new St.Icon({
+            icon_name: 'emblem-system' ,
+            style_class: 'pingindic-button-action' 
+        });
+        let preflabBtn = new St.Button({style_class: 'pingindic-Btn-label',y_align: Clutter.ActorAlign.CENTER,label: _('Settings')});
         prefsButton.connect('clicked', () => {
             this.menu.actor.hide();
             ExtensionUtils.openPrefs(); 
         });
+        preflabBtn.connect('clicked', () => {
+            this.menu.actor.hide();
+            ExtensionUtils.openPrefs(); 
+        });
         customButtonBox.add_actor(prefsButton);
+        customButtonBox.add_actor(preflabBtn);
+
         this.mainBox.add_actor(customButtonBox);
         this.menu.box.add(this.mainBox);
-    }
-    
-    createRoundButton(iconName) {
-        let button = new St.Button();
-        button.child = new St.Icon({
-            icon_name: iconName ,
-            style_class: 'pingindic-button-action' //'message-list-clear-button button moonphases-button-action'
-        });
-        return button;
     }
     
     loadData() {
@@ -130,21 +132,23 @@ class Extension extends PanelMenu.Button{
             let out = channel.read_line(); //dummy
              out = channel.read_line();
             const result =  out[1].split('=');
-            //log ('time = '+result[3]);
             if(result[3] != null) {
                 label.set_text(result[3]);
                 setlabelstyle(result[3]);
             }
         }
-        else 
-           label.set_text(_("Error 1"));
+        else {
+           label.set_text(_("Error time"));
+           label.set_style_class_name('pingindic-label-bad' );
+        }
         GLib.source_remove(tagWatchOUT);
         channel.shutdown(true);
     }
 
     loadPipeERR(channel, condition, data) {
         if (condition != GLib.IOCondition.HUP) {
-            label.set_text(_("Error 2"));
+            label.set_text(_("Error acces"));
+            label.set_style_class_name('pingindic-label-bad' );
         }
         GLib.source_remove(tagWatchERR);
         channel.shutdown(false);
@@ -153,7 +157,6 @@ class Extension extends PanelMenu.Button{
 
 function setlabelstyle(str){
     let time = parseFloat(str);
-    log('time '+time);
     if (time<settings.get_int(LIMITFORGOOD))
         label.set_style_class_name('pingindic-label-good' );
     else {
@@ -167,7 +170,7 @@ function setlabelstyle(str){
 
 function update() {
     mpingindic.loadData();
-    return true;
+    return GLib.SOURCE_CONTINUE;;
 }
 
 function init() {

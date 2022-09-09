@@ -1,6 +1,6 @@
 {
   "name": "PingIndic",
-  "description": "show network ping time",
+  "description": "show network ping delay",
   "uuid": "pingindic@xynium.github.com",
   "shell-version": [
     "3.36"
