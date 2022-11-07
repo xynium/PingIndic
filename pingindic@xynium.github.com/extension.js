@@ -97,7 +97,7 @@ class Extension extends PanelMenu.Button{
             null);
 
         if (!success) {
-            log('launching ping fail');
+            label.set_text(_("Ping Fail"));  //xxx for debug
             return;
         }
 
