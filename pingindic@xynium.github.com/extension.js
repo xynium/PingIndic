@@ -119,8 +119,9 @@ class Extension extends PanelMenu.Button{
              out = channel.read_line();
             const result =  out[1].split('=');
             if(result[3] != null) {
-                label.set_text(result[3]);
-                setlabelstyle(result[3]);
+                const val=result[3].split('\n');
+                label.set_text(val[0]);
+                setlabelstyle(val[0]); 
             }
         }
         else {
