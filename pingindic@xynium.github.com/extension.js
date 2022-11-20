@@ -129,7 +129,7 @@ class Extension extends PanelMenu.Button{
         }
         GLib.source_remove(tagWatchOUT);
         channel.shutdown(true);
-        GLib.spawn_close_pid(pid);
+        //GLib.spawn_close_pid(pid);
     }
 
     loadPipeERR(channel, condition, data) {
@@ -139,7 +139,7 @@ class Extension extends PanelMenu.Button{
         }
         GLib.source_remove(tagWatchERR);
         channel.shutdown(false);
-        GLib.spawn_close_pid(pid);
+        //GLib.spawn_close_pid(pid);
     }
 });
 
