@@ -37,7 +37,7 @@ class Extension extends PanelMenu.Button{
         super._init(0);
 
        // Label  voir les style at https://docs.gtk.org/Pango/pango_markup.html
-        label = new St.Label({style_class: 'pingindic-label',y_align: Clutter.ActorAlign.CENTER,text: _("HOLA!!!")});
+        label = new St.Label({style_class: 'pingindic-label',y_align: Clutter.ActorAlign.CENTER,text: _("¡HOLA!")});
         let topBox = new St.BoxLayout();
         topBox.add_actor(label);
 
